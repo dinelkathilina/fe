@@ -34,7 +34,7 @@ This application provides user authentication (Login, Register), a protected Das
 1.  **Clone the repository**:
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/dinelkathilina/fe.git
     cd fe
     ```
 
@@ -118,4 +118,3 @@ src/
 │   └── schemas/        # Zod validation schemas
 └── types/              # TypeScript definitions
 ```
-
