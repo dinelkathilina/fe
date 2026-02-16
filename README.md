@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# User Management System (Frontend)
 
-## Getting Started
+A modern, responsive frontend for the User Management System, built with **Next.js**, **TypeScript**, and **Tailwind CSS**.
 
-First, run the development server:
+This application provides user authentication (Login, Register), a protected Dashboard, and Role-Based Access Control (RBAC) features, tailored to work with a NestJS backend.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+- **Authentication**: Secure Login and Registration forms.
+- **Dashboard**: Protected route displaying user profile information.
+- **RBAC**: Conditional rendering of "Admin Panel" links based on user roles (`admin` vs `user`).
+- **Form Validation**: Robust client-side validation using **Zod** and **React Hook Form**.
+- **Responsive Design**: Built with Tailwind CSS for mobile-first responsiveness.
+- **Dark Mode**: Supports system preference (via Tailwind's dark mode).
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **HTTP Client**: [Axios](https://axios-http.com/)
+- **State Management**: React Context API (`AuthContext`)
+- **Form Handling**: [React Hook Form](https://react-hook-form.com/)
+- **Validation**: [Zod](https://zod.dev/)
+- **Icons**: [Heroicons](https://heroicons.com/) (optional/implied)
+
+## 📋 Prerequisites
+
+- **Node.js**: v18 or higher recommended.
+- **Backend**: A running instance of the [UMS Backend](https://github.com/dinelkathilina/be.git) on port `5000`.
+
+## 📦 Installation
+
+1.  **Clone the repository**:
+
+    ```bash
+    git clone <repository_url>
+    cd fe
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+## ⚙️ Configuration
+
+The application is configured to proxy API requests to the backend to avoid CORS issues during development.
+
+**`next.config.ts`**:
+
+```typescript
+const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://localhost:5000/:path*", // Forward /api requests to backend
+      },
+    ];
+  },
+};
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ensure your backend server is running on `http://localhost:5000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏃‍♂️ Running the Application
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Start the development server**:
 
-## Learn More
+    ```bash
+    npm run dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Open in browser**:
+    Navigate to [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧪 Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Registration
 
-## Deploy on Vercel
+- Navigate to `/register`.
+- Fill in Name, Email, and Password.
+- (Optional) Check "Register as Admin (Demo only)" to test admin features.
+- Click **Sign up**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Login
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Navigate to `/login`.
+- Enter your registered email and password.
+- Click **Sign in**.
+
+### Dashboard
+
+- Once logged in, you will be redirected to `/dashboard`.
+- View your profile details.
+- If you have the `admin` role, you will see the **Admin Controls** section.
+
+## 📂 Project Structure
+
+```
+src/
+├── app/                # Next.js App Router pages
+│   ├── dashboard/      # Protected dashboard page
+│   ├── login/          # Login page
+│   ├── register/       # Registration page
+│   ├── layout.tsx      # Global layout (Auth Provider, Navbar)
+│   └── page.tsx        # Landing page
+├── components/         # Reusable UI components
+│   ├── Button.tsx
+│   ├── Input.tsx
+│   └── Navbar.tsx
+├── context/            # Global state context
+│   └── AuthContext.tsx # Authentication logic & API calls
+├── lib/                # Utilities & Libraries
+│   └── schemas/        # Zod validation schemas
+└── types/              # TypeScript definitions
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
